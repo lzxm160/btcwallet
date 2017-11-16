@@ -22,7 +22,7 @@ var (
 	cfg *config
 )
 
-func main() {
+func xxmain() {
 	// Use all processor cores.
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
