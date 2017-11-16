@@ -18,9 +18,9 @@ import (
 	"github.com/btcsuite/btcwallet/wallet"
 )
 
-var (
-	cfg *config
-)
+// var (
+// 	//cfg *config
+// )
 
 func xxmain() {
 	// Use all processor cores.

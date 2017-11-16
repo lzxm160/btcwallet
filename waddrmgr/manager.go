@@ -1765,6 +1765,7 @@ func (m *Manager) NewAccount(name string) (uint32, error) {
 		if err != nil {
 			return err
 		}
+		fmt.Printf("1768:account:%d\n",account)
 		account++
 		// Fetch the cointype key which will be used to derive the next account
 		// extended keys
@@ -1785,21 +1786,30 @@ func (m *Manager) NewAccount(name string) (uint32, error) {
 			str := fmt.Sprintf("failed to create cointype extended private key")
 			return managerError(ErrKeyChain, str, err)
 		}
-
+		fmt.Printf("coinTypeKeyPriv:%v\n",coinTypeKeyPriv)
 		// Derive the account key using the cointype key
 		acctKeyPriv, err := deriveAccountKey(coinTypeKeyPriv, account)
+
+		fmt.Printf("acctKeyPriv:%v\n",acctKeyPriv)
+
 		coinTypeKeyPriv.Zero()
 		if err != nil {
 			str := "failed to convert private key for account"
 			return managerError(ErrKeyChain, str, err)
 		}
 		acctKeyPub, err := acctKeyPriv.Neuter()
+
+		fmt.Printf("acctKeyPub:%v\n",acctKeyPub)
+
 		if err != nil {
 			str := "failed to convert public key for account"
 			return managerError(ErrKeyChain, str, err)
 		}
 		// Encrypt the default account keys with the associated crypto keys.
 		acctPubEnc, err := m.cryptoKeyPub.Encrypt([]byte(acctKeyPub.String()))
+
+		//fmt.Printf("acctPubEnc:%v\n",string(acctPubEnc))
+
 		if err != nil {
 			str := "failed to  encrypt public key for account"
 			return managerError(ErrCrypto, str, err)
@@ -1809,6 +1819,9 @@ func (m *Manager) NewAccount(name string) (uint32, error) {
 			str := "failed to encrypt private key for account"
 			return managerError(ErrCrypto, str, err)
 		}
+
+		//fmt.Printf("acctPrivEnc:%v\n",string(acctPrivEnc))
+
 		// We have the encrypted account extended keys, so save them to the
 		// database
 		err = putAccountInfo(tx, account, acctPubEnc, acctPrivEnc, 0, 0, name)

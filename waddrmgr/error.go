@@ -12,6 +12,11 @@ import (
 )
 
 var (
+	TstMaxRecentHashes = maxRecentHashes
+
+// TstLatestMgrVersion makes the unexported latestMgrVersion variable available
+// for change when the tests are run.
+	TstLatestMgrVersion = &latestMgrVersion
 	// errAlreadyExists is the common error description used for the
 	// ErrAlreadyExists error code.
 	errAlreadyExists = "the specified address manager already exists"
