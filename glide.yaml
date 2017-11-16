@@ -28,10 +28,8 @@ import:
   - proto
 - package: github.com/jessevdk/go-flags
   version: 1679536dcc895411a9f5848d9a0250be7856448c
-- package: golang.org/x/net
-  subpackages:
-  - context
-- package: google.golang.org/grpc
+
+- package: github.com/grpc/grpc-go
   version: ^1.0.3
   subpackages:
   - codes
